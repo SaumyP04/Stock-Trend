@@ -1,28 +1,31 @@
 import yfinance as yf
 import streamlit as st
-import numpy as np
-import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
-startDate = "2022-09-10"
-endDate = "2024-09-10"
+
+
+#Current date and start date is 2 years before"
+endDate = datetime.today().strftime("%Y-%m-%d")
+startDate = (datetime.today() - timedelta(days=730)).strftime("%Y-%m-%d")
 
 
 #Need Data Prior to Start Date to show 2 year average
-#download 300 days prior to start date to account for days market is closed
+#Download 300 days prior to start date to account for days market is closed
 startDateDT = datetime.strptime(startDate, "%Y-%m-%d")
 extendedStartDateDT = startDateDT - timedelta(days=400)
 extendedStartDate = extendedStartDateDT.strftime("%Y-%m-%d")
 
 st.title("Moving Average Stock Trend Predictor")
 
+#Input for stock
 stockInput = st.text_input(
     label="Enter Stock", 
     placeholder="e.g. AAPL, TSLA, GOOGL...", 
     help="To Fetch Data Enter Stock"
 )
 
+#Button 
 enter = st.button("Show Data")
 
 
